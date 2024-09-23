@@ -1,5 +1,6 @@
 import React from "react";
 import { Avatar } from "@mui/material";
+import "./Navbar.css"
 
 const Navbar = () => {
     return (
@@ -9,7 +10,7 @@ const Navbar = () => {
 
             <div className='flex items-center gap-5'>
                 <p>codewithdavid</p>
-                <Avatar>D</Avatar>
+                <Avatar sx={{backgroundColor:"#c24dd0"}} className='bg-[#c24dd0]'>D</Avatar>
             </div>
         </div>
     )
