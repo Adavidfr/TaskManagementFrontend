@@ -30,7 +30,7 @@ code {
   /* background-image: linear-gradient(150deg, #c24dd0, #7a72fa); */
 }
 
-.customeButton{
+.customButton{
   background-image: linear-gradient(150deg, #c24dd0, #7a72fa);
   color: white !important;
 }
