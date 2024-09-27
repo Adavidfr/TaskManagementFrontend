@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { Avatar, ListItem, ListItemAvatar, ListItemText } from '@mui/material';
+import { Avatar, Divider, ListItem, ListItemAvatar, ListItemText } from '@mui/material';
 
 const style = {
   position: 'absolute',
@@ -16,6 +16,8 @@ const style = {
   boxShadow: 24,
   p: 2,
 };
+
+const tasks = [1,1,1,1]
 
 export default function UserList({handleClose, open}) {
 
@@ -30,7 +32,9 @@ export default function UserList({handleClose, open}) {
       >
         <Box sx={style}>
           {
-            [1,1,1].map((item)=> <div className='flex items-center justify-between w-full'>
+            tasks.map((item, index)=> 
+              <>
+              <div className='flex items-center justify-between w-full'>
               <div>
                 <ListItem>
                   <ListItemAvatar>
@@ -43,9 +47,15 @@ export default function UserList({handleClose, open}) {
               </div>
 
               <div>
-                <Button className='customeButton'>select</Button>
+                <Button className='customButton'>select</Button>
               </div>
-            </div>)
+
+              
+
+            </div>          
+            {index !== tasks.length - 1 &&  <Divider variant='inset'/>}
+              </>
+            )
           }
           
         </Box>
