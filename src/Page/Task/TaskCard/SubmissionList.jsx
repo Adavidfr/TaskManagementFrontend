@@ -32,7 +32,9 @@ export default function SubmissionList({ handleClose, open }) {
       >
         <Box sx={style}>
           <div>
-            {submissions.length > 0 ? <SubmissionCard /> : <div className="">
+            {submissions.length > 0 ? <div className="space-y-2">
+              {submissions.map((item) => <SubmissionCard />)}
+            </div> : <div className="">
               <div className='text-center'>
                 No submission Found
               </div>
