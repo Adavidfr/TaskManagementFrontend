@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { Autocomplete, Grid, TextField } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
@@ -80,6 +80,9 @@ export default function EditTaskForm({ handleClose, open }) {
     handleClose()
   }
 
+  useEffect(() => {
+
+  },[])
 
   return (
     <div>
