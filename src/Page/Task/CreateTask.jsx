@@ -158,9 +158,7 @@ export default function CreateNewTaskForm({ handleClose, open }) {
                   sx={{ padding: ".9rem" }}
                 >
                   Creatte
-
                 </Button>
-
               </Grid>
 
             </Grid>
