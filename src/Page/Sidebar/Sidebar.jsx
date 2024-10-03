@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import "./Sidebar.css"
 import { Button } from '@mui/material'
 import CreateNewTaskForm from '../Task/CreateTask'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const menu = [
   { name: "Home", value: "Home", role: ["ROLE_ADMIN", "ROLE_CUSTOMER"] },
@@ -16,6 +17,8 @@ const menu = [
 const role = "ROLE_ADMIN"
 
 const Sidebar = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [activeMenu, setActiveMenu] = useState("DONE")
   const [openCreateTaskForm, setOpenCreateTaskForm] = useState(false);
 
@@ -27,9 +30,24 @@ const Sidebar = () => {
     setOpenCreateTaskForm(true);
   };
   const handleMenuChange = (item) => {
-    if(item.name=="Create New Task"){
+
+    const updatedParams = new URLSearchParams(location.search);
+    
+    if (item.name == "Create New Task") {
       handleOpenCreateTaskModel()
     }
+    
+    else if(item.name == "Home") {
+      updatedParams.delete("filter")
+      const queryString = updatedParams.toString();
+      const updatedPath = queryString ? `${location.pathname} ? ${queryString}` : location.pathname;
+      navigate(updatedPath);
+
+    }
+    else {
+
+    }
+    
     setActiveMenu(item.name)
   }
   const handleLogout = () => {
@@ -61,7 +79,7 @@ const Sidebar = () => {
 
         </div>
       </div>
-      <CreateNewTaskForm open={openCreateTaskForm} handleClose={handleCloseCreateTaskForm}/>
+      <CreateNewTaskForm open={openCreateTaskForm} handleClose={handleCloseCreateTaskForm} />
     </>
   )
 }
