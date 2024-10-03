@@ -52,7 +52,7 @@ const Signin = ({togglePanel}) => {
                     </Button>
                 </div>
             </form>
-            <div>
+            <div className="mt-5 flex items-center gap-2 py-5 justify-center">
                 <span>don't have an account?</span>
                 <Button onClick={togglePanel}>signup</Button>
 
