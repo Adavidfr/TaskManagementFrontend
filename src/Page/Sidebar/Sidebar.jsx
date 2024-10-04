@@ -45,6 +45,8 @@ const Sidebar = () => {
 
     }
     else {
+      updatedParams.set("filter", item.value);
+      navigate(`${location.pathname} ? ${updatedParams.toString}`)
 
     }
     
