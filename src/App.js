@@ -6,7 +6,7 @@ import Auth from './Page/Auth/Auth';
 import { useState } from 'react';
 
 function App() {
-  const {user} = useState(true);
+  const user = useState(true);
   return (
     <ThemeProvider theme={darkTheme}>
       {user ? <div>
