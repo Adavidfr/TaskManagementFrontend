@@ -4,6 +4,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { Avatar, Divider, ListItem, ListItemAvatar, ListItemText } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserList } from '../../ReduxToolkit/AuthSlice';
 
 const style = {
   position: 'absolute',
@@ -17,13 +19,20 @@ const style = {
   p: 2,
 };
 
-const tasks = [1,1,1,1]
+const tasks = [1, 1, 1, 1]
 
-export default function UserList({handleClose, open}) {
+export default function UserList({ handleClose, open }) {
 
-    return (
+  const dispatch = useDispatch();
+  const { auth } = useSelector(store => store);
+
+  React.useEffect((item) => {
+    dispatch(getUserList(localStorage.getItem("jwt")))
+  }, [])
+
+  return (
     <div>
-      
+
       <Modal
         open={open}
         onClose={handleClose}
@@ -32,32 +41,32 @@ export default function UserList({handleClose, open}) {
       >
         <Box sx={style}>
           {
-            tasks.map((item, index)=> 
+            auth.users.map((item, index) =>
               <>
-              <div className='flex items-center justify-between w-full'>
-              <div>
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUjgjdBYGMGlTaYZT4FiNhQDDf7xlpf-cSQQ&s' />
-                  </ListItemAvatar>
-                  <ListItemText 
-                  secondary="@code_with_david"
-                  primary={"Code With David"}/>
-                </ListItem>
-              </div>
+                <div className='flex items-center justify-between w-full'>
+                  <div>
+                    <ListItem>
+                      <ListItemAvatar>
+                        <Avatar src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUjgjdBYGMGlTaYZT4FiNhQDDf7xlpf-cSQQ&s' />
+                      </ListItemAvatar>
+                      <ListItemText
+                        secondary={`@${item.fullName.split(" ").join("_").toLowerCase()}`}
+                        primary={item.fullName} />
+                    </ListItem>
+                  </div>
 
-              <div>
-                <Button className='customButton'>select</Button>
-              </div>
+                  <div>
+                    <Button className='customButton'>select</Button>
+                  </div>
 
-              
 
-            </div>          
-            {index !== tasks.length - 1 &&  <Divider variant='inset'/>}
+
+                </div>
+                {index !== tasks.length - 1 && <Divider variant='inset' />}
               </>
             )
           }
-          
+
         </Box>
       </Modal>
     </div>
