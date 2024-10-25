@@ -6,6 +6,8 @@ import Modal from '@mui/material/Modal';
 import { Avatar, Divider, ListItem, ListItemAvatar, ListItemText } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserList } from '../../ReduxToolkit/AuthSlice';
+import { assignedTaskToUser } from '../../ReduxToolkit/TaskSlice';
+import { useLocation } from 'react-router-dom';
 
 const style = {
   position: 'absolute',
@@ -25,10 +27,17 @@ export default function UserList({ handleClose, open }) {
 
   const dispatch = useDispatch();
   const { auth } = useSelector(store => store);
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const taskId = queryParams.get("taskId");
 
   React.useEffect((item) => {
     dispatch(getUserList(localStorage.getItem("jwt")))
   }, [])
+
+  const handleAssignedTask = (user) => [
+    dispatch(assignedTaskToUser({userId : user.id, taskId : taskId}))
+  ]
 
   return (
     <div>
@@ -56,7 +65,7 @@ export default function UserList({ handleClose, open }) {
                   </div>
 
                   <div>
-                    <Button className='customButton'>select</Button>
+                    <Button onClick={() => handleAssignedTask (item)} className='customButton'>select</Button>
                   </div>
 
 
