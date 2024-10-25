@@ -4,17 +4,19 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import UserList from '../UserList';
 import SubmissionList from './SubmissionList';
 import EditTaskForm from './EditTaskForm';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { deleteTask } from '../../../ReduxToolkit/TaskSlice';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-const role = "ROLE_ADMIN"
+const role = "ROLE_ADMIN";
 const TaskCard = ({ item }) => {
     const dispatch = useDispatch();
 
     const location = useLocation();
 
     const navigate = useNavigate();
+
+    const { auth } = useSelector (store => store)
 
     const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -35,7 +37,24 @@ const TaskCard = ({ item }) => {
     }
 
     const handleOpenUserList = () => {
+        const updatedParams = new URLSearchParams(location.search)
+        updatedParams.set("taskId", item.id);
+        navigate(`${location.pathname} ? ${updatedParams.toString()}`)
         setOpenUserList(true);
+        handleMenuClose()
+    };
+
+    const [openSubmitFormModel, setOpenSubmitFormModel] = useState(false);
+
+    const handleCloseSubmitFormModel = () => {
+        setOpenSubmissionList(false)
+    }
+
+    const handleOpenSubmitFormModel = () => {
+        const updatedParams = new URLSearchParams(location.search)
+        updatedParams.set("taskId", item.id);
+        navigate(`${location.pathname} ? ${updatedParams.toString()}`)
+        setOpenSubmitFormModel(true)
         handleMenuClose()
     };
 
@@ -46,6 +65,9 @@ const TaskCard = ({ item }) => {
     }
 
     const handleOpenSubmissionList = () => {
+        const updatedParams = new URLSearchParams(location.search)
+        updatedParams.set("taskId", item.id);
+        navigate(`${location.pathname} ? ${updatedParams.toString()}`)
         setOpenSubmissionList(true)
         handleMenuClose()
     };
@@ -66,9 +88,9 @@ const TaskCard = ({ item }) => {
 
     const handleOpenUpdateTaskModel = () => {
         const updatedParams = new URLSearchParams(location.search)
-        setOpenUpdateTaskForm(true);
         updatedParams.set("taskId", item.id);
-        navigate(`${location.pathname} ? ${updatedParams.toString}`)
+        navigate(`${location.pathname} ? ${updatedParams.toString()}`)
+        setOpenUpdateTaskForm(true);
         handleMenuClose();
     };
 
@@ -117,13 +139,16 @@ const TaskCard = ({ item }) => {
 
 
                         {
-                            role === "ROLE_ADMIN" ? <>
+                            auth.user?.role === "ROLE_ADMIN" ? (<>
                                 <MenuItem onClick={handleOpenUserList}>Assigned User</MenuItem>
                                 <MenuItem onClick={handleOpenSubmissionList}>See Submissions</MenuItem>
                                 <MenuItem onClick={handleOpenUpdateTaskModel}>Edit</MenuItem>
                                 <MenuItem onClick={handleDeleteTask}>Delete</MenuItem>
-                            </> : (<>
                             </>
+                            ) : (
+                                <>
+                                <MenuItem onClick={handleOpenSubmitFormModel}>Submit</MenuItem>
+                                </>
                             )}
 
                     </Menu>
