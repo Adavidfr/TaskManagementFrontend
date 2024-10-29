@@ -7,6 +7,7 @@ import EditTaskForm from './EditTaskForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteTask } from '../../../ReduxToolkit/TaskSlice';
 import { useLocation, useNavigate } from 'react-router-dom';
+import SubmitFormModel from './SubmitFormModel';
 
 const role = "ROLE_ADMIN";
 const TaskCard = ({ item }) => {
@@ -159,6 +160,7 @@ const TaskCard = ({ item }) => {
             <UserList open={openUserList} handleClose={handleCloseUserList} />
             <SubmissionList open={openSubmissionList} handleClose={handleCloseSubmissionList} />
             <EditTaskForm item={item} open={openUpdateTaskForm} handleClose={handleCloseUpdateTaskForm} />
+            <SubmitFormModel open={openSubmitFormModel} handleClose={handleCloseSubmitFormModel}/>
 
         </div>
     );
