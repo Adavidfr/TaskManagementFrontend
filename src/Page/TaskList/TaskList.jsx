@@ -21,7 +21,6 @@ const TaskList = () => {
 
   }, [filterValue]);
 
-  console.log("task", task)
   return (
     <div className='w-[67vw]'>
       <div className='space-y-3'>
