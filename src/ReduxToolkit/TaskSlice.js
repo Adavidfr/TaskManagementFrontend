@@ -26,7 +26,7 @@ export const fetchUsersTasks = createAsyncThunk("task/fetchUsersTasks",
             const { data } = await api.get("/api/tasks/user", {
                 params: { status }
             });
-            console.log("fetch users tasks: ", data)
+            // console.log("fetch users tasks: ", data)
             return data;
         } catch (error) {
             console.log("error", error)

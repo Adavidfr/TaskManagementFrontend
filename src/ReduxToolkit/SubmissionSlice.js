@@ -3,7 +3,7 @@ import { api, setAuthHeader } from "../api/api";
 
 export const submitTask = createAsyncThunk("submissions/submitTask",
     async ({ taskId, githubLink }) => {
-        setAuthHeader(localStorage.getItem("jwt", api));
+        setAuthHeader(localStorage.getItem("jwt"), api);
 
         try {
             const { data } = await api.post(`/api/submissions?task_id=${taskId}&github_link=${githubLink}`,
@@ -20,7 +20,7 @@ export const submitTask = createAsyncThunk("submissions/submitTask",
 
 export const fetchAllSubmissions = createAsyncThunk("submissions/fetchAllSubmissions",
     async () => {
-        setAuthHeader(localStorage.getItem("jwt", api));
+        setAuthHeader(localStorage.getItem("jwt"), api);
 
         try {
             const { data } = await api.get(`/api/submissions`, {}
@@ -35,12 +35,11 @@ export const fetchAllSubmissions = createAsyncThunk("submissions/fetchAllSubmiss
 );
 
 export const fetchSubmissionsByTaskId = createAsyncThunk("submissions/fetchSubmissionsByTaskId",
-    async (taskId) => {
-        setAuthHeader(localStorage.getItem("jwt", api));
+    async ({taskId}) => {
+        setAuthHeader(localStorage.getItem("jwt"), api);
 
         try {
-            const { data } = await api.get(`/api/submissions/task/${taskId}`, {}
-            );
+            const { data } = await api.get(`/api/submissions/task/${taskId}`);
             console.log("submited task ", data)
             return data;
         } catch (error) {
@@ -51,8 +50,8 @@ export const fetchSubmissionsByTaskId = createAsyncThunk("submissions/fetchSubmi
 );
 
 export const acceptDeclineSubmission = createAsyncThunk("submissions/acceptDeclineSubmission",
-    async (id, status) => {
-        setAuthHeader(localStorage.getItem("jwt", api));
+    async ({id, status}) => {
+        setAuthHeader(localStorage.getItem("jwt"), api);
 
         try {
             const { data } = await api.put(`/api/submissions/${id}?status=${status}`, {}
